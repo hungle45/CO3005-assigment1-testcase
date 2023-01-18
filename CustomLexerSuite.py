@@ -6,3 +6,7 @@ class LexerSuite(unittest.TestCase):
     def test_lowercase_identifier(self):
         """test identifiers"""
         self.assertTrue(TestLexer.test("abc", "abc,<EOF>", "LNH_000"))
+
+    def test_2(self):
+        """test identifiers"""
+        self.assertTrue(TestLexer.test("abc", "abc,<EOF>", "HTK_000"))
