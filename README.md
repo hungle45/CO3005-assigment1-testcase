@@ -14,7 +14,7 @@ Download and move this repo (CO3005-assigment1-testcase) to `root/` like the fil
     ├── src
     └── target
 
-Open file `root/src/run.py` and add these codes add line 37:
+Open file `root/src/run.py` and add these codes at line 37:
 
 ```python
         # line above
