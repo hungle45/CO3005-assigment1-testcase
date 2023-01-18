@@ -19,6 +19,12 @@ PARSER_SOL_DIR = "../CO3005-assigment1-testcase/parser/solutions"
 Lexer = MT22Lexer
 Parser = MT22Parser
 
+#=======================================================
+token_names = {}
+for name, value in MT22Lexer.__dict__.items():
+    if isinstance(value, int) and name == name.upper():
+        token_names[value] = name
+#=======================================================
 
 class TestUtil:
     @staticmethod
@@ -54,7 +60,10 @@ class TestLexer:
     def printLexeme(dest, lexer):
         tok = lexer.nextToken()
         if tok.type != Token.EOF:
+#=======================================================
+            # dest.write(f'{tok.text} --> TOKEN_{token_names[tok.type]}\n')
             dest.write(tok.text+",")
+#=======================================================
             TestLexer.printLexeme(dest, lexer)
         else:
             dest.write("<EOF>")
