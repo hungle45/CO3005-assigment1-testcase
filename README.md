@@ -23,7 +23,13 @@ Open file `root/src/run.py` and add these codes at line 37:
         #     getAndTest(ParserSuite)
         elif argv[1] == 'CustomLexer':
             sys.path.append('../CO3005-assigment1-testcase/')
-            from CustomLexerSuite import LexerSuite
+            from CustomTestUtils import LEXER_DETAIL_DIR, LEXER_SOL_DIR, LEXER_TEST_DIR
+            LexerSuite = getattr(__import__('CustomLexerSuite_'+argv[2],fromlist=['LexerSuite']),'LexerSuite')
+
+            subprocess.run(["rm", "-rf", LEXER_DETAIL_DIR + "/*.txt"])
+            subprocess.run(["rm", "-rf", LEXER_TEST_DIR + "/*.txt"])
+            subprocess.run(["rm", "-rf", LEXER_SOL_DIR + "/*.txt"])
+            
             getAndTest(LexerSuite)
         elif argv[1] == 'CustomParser':     
             sys.path.append('../CO3005-assigment1-testcase/')
@@ -40,7 +46,9 @@ Change current directory to `root/src` where there is file run.py
 
 Then type to test Lexer
 
-    python run.py test CustomLexer
+    python run.py test CustomLexer {AuthorName}
+
+ex: `python run.py test CustomLexer HTK`
 
 Then type to test Parser
 
@@ -50,6 +58,6 @@ Then type to test Parser
 
 ## Contribute
 
-Testcases are stored as `.txt` file under `root/CO3005-assigment1-testcase/(lexer|parser)/testcases/`.
+Testcases are stored in file `CustomLexerSuite_{AuthorName}.py`.
 
-Filename convention: `{yourname}_{id}.txt`
+Testcase name convention: `{AuthorName}_{ID}.txt`

@@ -14,17 +14,16 @@ import subprocess
 JASMIN_JAR = "./external/jasmin.jar"
 LEXER_TEST_DIR = "../CO3005-assigment1-testcase/lexer/testcases/"
 LEXER_SOL_DIR = "../CO3005-assigment1-testcase/lexer/solutions/"
+LEXER_DETAIL_DIR = "../CO3005-assigment1-testcase/lexer/details/"
 PARSER_TEST_DIR = "../CO3005-assigment1-testcase/parser/testcases/"
 PARSER_SOL_DIR = "../CO3005-assigment1-testcase/parser/solutions"
 Lexer = MT22Lexer
 Parser = MT22Parser
 
-#=======================================================
 token_names = {}
 for name, value in MT22Lexer.__dict__.items():
     if isinstance(value, int) and name == name.upper():
         token_names[value] = name
-#=======================================================
 
 class TestUtil:
     @staticmethod
@@ -39,34 +38,37 @@ class TestUtil:
 class TestLexer:
     @staticmethod
     def test(input, expect, num):
+        num = str(num)
         inputfile = TestUtil.makeSource(LEXER_TEST_DIR,input, num)
-        TestLexer.check(LEXER_SOL_DIR, inputfile, num)
+        TestLexer.check(LEXER_DETAIL_DIR, LEXER_SOL_DIR, inputfile, num)
         dest = open(LEXER_SOL_DIR + num + ".txt", "r")
         line = dest.read()
         return line == expect
 
     @staticmethod
-    def check(soldir, inputfile, num):
-        dest = open(os.path.join(soldir, num + ".txt"), "w")
+    def check(detaildir, soldir, inputfile, num):
+        num = str(num)
+        sol_dest = open(os.path.join(soldir, num + ".txt"), "w")
+        detail_dest = open(os.path.join(detaildir, num + ".txt"), "w")
         lexer = Lexer(inputfile)
         try:
-            TestLexer.printLexeme(dest, lexer)
+            TestLexer.printLexeme(detail_dest, sol_dest, lexer)
         except (ErrorToken, UncloseString, IllegalEscape) as err:
-            dest.write(err.message)
+            sol_dest.write(err.message)
         finally:
-            dest.close()
+            sol_dest.close()
+            detail_dest.close()
 
     @staticmethod
-    def printLexeme(dest, lexer):
+    def printLexeme(detail_dest, sol_dest, lexer):
         tok = lexer.nextToken()
         if tok.type != Token.EOF:
-#=======================================================
-            # dest.write(f'{tok.text} --> TOKEN_{token_names[tok.type]}\n')
-            dest.write(tok.text+",")
-#=======================================================
-            TestLexer.printLexeme(dest, lexer)
+            detail_dest.write(f'{tok.text} --> TOKEN_{token_names[tok.type]}\n')
+            sol_dest.write(tok.text+",")
+            TestLexer.printLexeme(detail_dest, sol_dest, lexer)
         else:
-            dest.write("<EOF>")
+            detail_dest.write("<EOF>")
+            sol_dest.write("<EOF>")
 
 
 class NewErrorListener(ConsoleErrorListener):
@@ -92,6 +94,7 @@ class TestParser:
 
     @staticmethod
     def test(input, expect, num):
+        num = str(num)
         inputfile = TestUtil.makeSource(PARSER_TEST_DIR,input, num)
         TestParser.check(PARSER_SOL_DIR, inputfile, num)
         dest = open(PARSER_SOL_DIR + num + ".txt", "r")
@@ -100,6 +103,7 @@ class TestParser:
 
     @staticmethod
     def check(soldir, inputfile, num):
+        num = str(num)
         dest = open(os.path.join(soldir, num + ".txt"), "w")
         lexer = Lexer(inputfile)
         listener = TestParser.createErrorListener()
