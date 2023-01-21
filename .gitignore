@@ -1,7 +1,7 @@
 # User input and ouput
-*/testcases/*.txt
-*/solutions/*.txt
-lexer/details/*.txt
+testcases/*.txt
+solutions/*.txt
+details/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

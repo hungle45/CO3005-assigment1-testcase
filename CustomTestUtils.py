@@ -12,11 +12,9 @@ from lexererr import *
 import subprocess
 
 JASMIN_JAR = "./external/jasmin.jar"
-LEXER_TEST_DIR = "../CO3005-assigment1-testcase/lexer/testcases/"
-LEXER_SOL_DIR = "../CO3005-assigment1-testcase/lexer/solutions/"
-LEXER_DETAIL_DIR = "../CO3005-assigment1-testcase/lexer/details/"
-PARSER_TEST_DIR = "../CO3005-assigment1-testcase/parser/testcases/"
-PARSER_SOL_DIR = "../CO3005-assigment1-testcase/parser/solutions"
+TEST_DIR = "../CO3005-assigment1-testcase/testcases/"
+SOL_DIR = "../CO3005-assigment1-testcase/solutions/"
+DETAIL_DIR = "../CO3005-assigment1-testcase/details/"
 Lexer = MT22Lexer
 Parser = MT22Parser
 
@@ -39,9 +37,9 @@ class TestLexer:
     @staticmethod
     def test(input, expect, num):
         num = str(num)
-        inputfile = TestUtil.makeSource(LEXER_TEST_DIR,input, num)
-        TestLexer.check(LEXER_DETAIL_DIR, LEXER_SOL_DIR, inputfile, num)
-        dest = open(LEXER_SOL_DIR + num + ".txt", "r")
+        inputfile = TestUtil.makeSource(TEST_DIR,input, num)
+        TestLexer.check(DETAIL_DIR, SOL_DIR, inputfile, num)
+        dest = open(SOL_DIR + num + ".txt", "r")
         line = dest.read()
         return line == expect
 
@@ -95,9 +93,9 @@ class TestParser:
     @staticmethod
     def test(input, expect, num):
         num = str(num)
-        inputfile = TestUtil.makeSource(PARSER_TEST_DIR,input, num)
-        TestParser.check(PARSER_SOL_DIR, inputfile, num)
-        dest = open(PARSER_SOL_DIR + num + ".txt", "r")
+        inputfile = TestUtil.makeSource(TEST_DIR,input, num)
+        TestParser.check(SOL_DIR, inputfile, num)
+        dest = open(SOL_DIR + num + ".txt", "r")
         line = dest.read()
         return line == expect
 
