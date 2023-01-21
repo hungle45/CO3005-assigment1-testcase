@@ -27,10 +27,10 @@ class TestUtil:
     @staticmethod
     def makeSource(testdir, inputStr, num):
         filename = testdir + str(num) + ".txt"
-        file = open(filename, "w")
+        file = open(filename, "w",encoding='utf8')
         file.write(inputStr)
         file.close()
-        return FileStream(filename)
+        return FileStream(filename,encoding='utf8')
 
 
 class TestLexer:
@@ -39,15 +39,15 @@ class TestLexer:
         num = str(num)
         inputfile = TestUtil.makeSource(TEST_DIR,input, num)
         TestLexer.check(DETAIL_DIR, SOL_DIR, inputfile, num)
-        dest = open(SOL_DIR + num + ".txt", "r")
+        dest = open(SOL_DIR + num + ".txt", "r",encoding='utf8')
         line = dest.read()
         return line == expect
 
     @staticmethod
     def check(detaildir, soldir, inputfile, num):
         num = str(num)
-        sol_dest = open(os.path.join(soldir, num + ".txt"), "w")
-        detail_dest = open(os.path.join(detaildir, num + ".txt"), "w")
+        sol_dest = open(os.path.join(soldir, num + ".txt"), "w",encoding='utf8')
+        detail_dest = open(os.path.join(detaildir, num + ".txt"), "w",encoding='utf8')
         lexer = Lexer(inputfile)
         try:
             TestLexer.printLexeme(detail_dest, sol_dest, lexer)
@@ -95,14 +95,14 @@ class TestParser:
         num = str(num)
         inputfile = TestUtil.makeSource(TEST_DIR,input, num)
         TestParser.check(SOL_DIR, inputfile, num)
-        dest = open(SOL_DIR + num + ".txt", "r")
+        dest = open(SOL_DIR + num + ".txt", "r",encoding='utf8')
         line = dest.read()
         return line == expect
 
     @staticmethod
     def check(soldir, inputfile, num):
         num = str(num)
-        dest = open(os.path.join(soldir, num + ".txt"), "w")
+        dest = open(os.path.join(soldir, num + ".txt"), "w",encoding='utf8')
         lexer = Lexer(inputfile)
         listener = TestParser.createErrorListener()
         tokens = CommonTokenStream(lexer)
