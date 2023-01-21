@@ -1,8 +1,3 @@
-# User input and ouput
-testcases/*.txt
-solutions/*.txt
-details/*.txt
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

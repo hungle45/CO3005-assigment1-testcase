@@ -12,9 +12,9 @@ from lexererr import *
 import subprocess
 
 JASMIN_JAR = "./external/jasmin.jar"
-TEST_DIR = "../CO3005-assigment1-testcase/testcases/"
-SOL_DIR = "../CO3005-assigment1-testcase/solutions/"
-DETAIL_DIR = "../CO3005-assigment1-testcase/details/"
+TEST_DIR = "./test/testcases/"
+SOL_DIR = "./test/solutions/"
+DETAIL_DIR = "./test/details/"
 Lexer = MT22Lexer
 Parser = MT22Parser
 
